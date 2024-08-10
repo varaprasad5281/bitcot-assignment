@@ -28,7 +28,6 @@ const App = () => {
   }, [contacts]);
 
   const handleAddEditContact = (contact) => {
-    console.log("Contact to save in App:", contact);
     if (contact.id) {
       // Edit existing contact
       setContacts(prevContacts =>
@@ -41,11 +40,13 @@ const App = () => {
     }
 
     setIsAddEditModalOpen(false);
-    setSelectedContact(null); // Clear selected contact after save
+    setSelectedContact(null);
   };
 
   const handleDeleteContact = (id) => {
-    setContacts(prevContacts => prevContacts.filter(contact => contact.id !== id));
+    if (window.confirm("Are you sure you want to delete this contact?")) {
+      setContacts(prevContacts => prevContacts.filter(contact => contact.id !== id));
+    }
   };
 
   const handleViewContact = (contact) => {
@@ -63,7 +64,7 @@ const App = () => {
       <ContactsView
         contacts={contacts}
         onAdd={() => {
-          setSelectedContact(null); // Clear selected contact before adding a new one
+          setSelectedContact(null);
           setIsAddEditModalOpen(true);
         }}
         onDelete={handleDeleteContact}

@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from "react";
 
 const AddEditContact = ({ onSave, onClose, contact }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [address, setAddress] = useState("");
-
-  useEffect(() => {
-    if (contact) {
-      setName(contact.name || "");
-      setEmail(contact.email || "");
-      setMobile(contact.mobile || "");
-      setAddress(contact.address || "");
-    }
-  }, [contact]);
+  const [name, setName] = useState(contact?.name || "");
+  const [email, setEmail] = useState(contact?.email || "");
+  const [mobile, setMobile] = useState(contact?.mobile || "");
+  const [address, setAddress] = useState(contact?.address || "");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,11 +15,11 @@ const AddEditContact = ({ onSave, onClose, contact }) => {
 
     // Pass the new or updated contact back to the parent component
     onSave({
-      id: contact?.id || uuidv4(), // Generate a new ID if not editing
+      id: contact?.id,
       name,
       email,
       mobile,
-      address
+      address,
     });
 
     // Clear the form and close the modal
@@ -43,7 +33,9 @@ const AddEditContact = ({ onSave, onClose, contact }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded shadow-lg w-full max-w-md">
-        <h2 className="text-2xl mb-4">{contact ? "Edit Contact" : "Add Contact"}</h2>
+        <h2 className="text-2xl mb-4">
+          {contact ? "Edit Contact" : "Add Contact"}
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2">Name</label>
@@ -82,10 +74,17 @@ const AddEditContact = ({ onSave, onClose, contact }) => {
             />
           </div>
           <div className="flex justify-between">
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
               Save
             </button>
-            <button type="button" onClick={onClose} className="bg-gray-500 text-white px-4 py-2 rounded">
+            <button
+              type="button"
+              onClick={onClose}
+              className="bg-gray-500 text-white px-4 py-2 rounded"
+            >
               Cancel
             </button>
           </div>
@@ -95,4 +94,4 @@ const AddEditContact = ({ onSave, onClose, contact }) => {
   );
 };
 
-export default AddEditContact;
+export default AddEditContact;

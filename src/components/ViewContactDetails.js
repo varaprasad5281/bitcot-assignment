@@ -9,8 +9,6 @@ const ViewContact = ({ contact, onClose }) => {
         <p><strong>Mobile:</strong> {contact.mobile}</p>
         <p><strong>Email:</strong> {contact.email}</p>
         <p><strong>Address:</strong> {contact.address}</p>
-
-
         <div className="flex justify-end mt-4">
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded"
